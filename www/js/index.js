@@ -29,7 +29,7 @@
 $(document).ready(function(){
   alert('moo');
   var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
-  $.getJSON( flickerAPI)
+  $.getJSON(altcoinAPI)
     .done(function( data ) {
       var stats = JSON.parse(data);
       // BTC
