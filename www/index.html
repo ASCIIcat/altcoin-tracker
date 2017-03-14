@@ -4,41 +4,74 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <title>API Test</title>
-    </head>
-    <body>
-        <ul id="prices"></ul>
 
-        <script type="text/javascript" src="cordova.js"></script>
+        <!-- Material Design -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-deep_purple.min.css">
+        <link rel="stylesheet" href="styles/main.css">
+    </head>
+    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+          <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          </div>
+          <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+            <h3>Altcoin Tracker</h3>
+          </div>
+          <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          </div>
+          <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+            <a href="#btc" class="mdl-layout__tab is-active">BTC</a>
+            <a href="#ltc" class="mdl-layout__tab">LTC</a>
+            <a href="#nmc" class="mdl-layout__tab">NMC</a>
+            <a href="" class="mdl-layout__tab" id="reload">Reload</a>
+          </div>
+        </header>
+        <main class="mdl-layout__content">
+          <div class="mdl-layout__tab-panel is-active" id="btc">
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+              <div class="mdl-card mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                  <h4 class="mdl-cell mdl-cell--12-col">BTC Market ZAR</h4>
+                  <ul id="btc-prices"></ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="mdl-layout__tab-panel" id="ltc">
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+              <div class="mdl-card mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                  <h4 class="mdl-cell mdl-cell--12-col">LTC Market ZAR</h4>
+                  <ul id="ltc-prices"></ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="mdl-layout__tab-panel" id="nmc">
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+              <div class="mdl-card mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                  <h4 class="mdl-cell mdl-cell--12-col">NMC Market ZAR</h4>
+                  <ul id="nmc-prices"></ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <footer class="mdl-mega-footer">
+            <div class="mdl-mega-footer--bottom-section">
+              <div class="mdl-logo">
+                Made with <i class="material-icons heart">favorite</i> by ASCIIcat &copy; 2017<script>new Date().getFullYear()>2017&&document.write("-"+new Date().getFullYear());</script> with Google Material
+              </div>
+            </div>
+          </footer>
+        </main>
+      </div>
+
+        <!-- <script type="text/javascript" src="cordova.js"></script> -->
+        <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-        <script type="text/javascript">
-          $(document).on("mobileinit", function(){
-            //apply overrides here
-            $.mobile.allowCrossDomainPages = true;
-            $.support.cors = true;
-          });
-
-          $(document).ready(function(){
-            var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
-            $.getJSON(altcoinAPI, function(stats){
-                // var stats = JSON.parse(data);
-                // BTC
-                $('#prices').append('<li>BTC:<ul>');
-                $('#prices').append('<li><strong>Price</strong>: '+stats.BTC.Price+'</li>');
-                $('#prices').append('<li><strong>High</strong>: '+stats.BTC.High+'</li>');
-                $('#prices').append('<li><strong>Low</strong>: '+stats.BTC.Low+'</li></ul></li>');
-                // LTC
-                $('#prices').append('<li>LTC:<ul>');
-                $('#prices').append('<li><strong>Price</strong>: '+stats.LTC.Price+'</li>');
-                $('#prices').append('<li><strong>High</strong>: '+stats.LTC.High+'</li>');
-                $('#prices').append('<li><strong>Low</strong>: '+stats.LTC.Low+'</li></ul></li>');
-                // NMC
-                $('#prices').append('<li>NMC:<ul>');
-                $('#prices').append('<li><strong>Price</strong>: '+stats.NMC.Price+'</li>');
-                $('#prices').append('<li><strong>High</strong>: '+stats.NMC.High+'</li>');
-                $('#prices').append('<li><strong>Low</strong>: '+stats.NMC.Low+'</li></ul></li>');
-              });
-          });
-        </script>
+        <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
