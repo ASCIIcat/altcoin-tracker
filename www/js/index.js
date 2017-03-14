@@ -27,6 +27,7 @@
 //
 // });
 $(document).ready(function(){
+  alert('moo');
   var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
   $.getJSON( flickerAPI)
     .done(function( data ) {
@@ -46,5 +47,13 @@ $(document).ready(function(){
       $('.prices').append('<li><strong>Price</strong>: '+stats.NMC.Price+'</li>');
       $('.prices').append('<li><strong>High</strong>: '+stats.NMC.High+'</li>');
       $('.prices').append('<li><strong>Low</strong>: '+stats.NMC.Low+'</li></ul></li>');
+    })
+    .fail(function() {
+      console.log( "error" );
+      alert("error");
+    })
+    .always(function() {
+      console.log( "complete" );
+      alert("done");
     });
 });
