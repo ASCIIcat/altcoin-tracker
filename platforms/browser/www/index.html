@@ -9,9 +9,15 @@
         <ul id="prices"></ul>
 
         <script type="text/javascript" src="cordova.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
         <script type="text/javascript">
-          $.support.cors = true;
+          $(document).on("mobileinit", function(){
+            //apply overrides here
+            $.mobile.allowCrossDomainPages = true;
+            $.support.cors = true;
+          });
+          
           $(document).ready(function(){
             var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
             $.getJSON(altcoinAPI, function(stats){
