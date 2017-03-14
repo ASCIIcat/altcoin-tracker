@@ -17,27 +17,26 @@
             $.mobile.allowCrossDomainPages = true;
             $.support.cors = true;
           });
-          
+
           $(document).ready(function(){
             var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
             $.getJSON(altcoinAPI, function(stats){
-                alert(stats);
                 // var stats = JSON.parse(data);
                 // BTC
-                $('.prices').append('<li>BTC:<ul>');
-                $('.prices').append('<li><strong>Price</strong>: '+stats.BTC.Price+'</li>');
-                $('.prices').append('<li><strong>High</strong>: '+stats.BTC.High+'</li>');
-                $('.prices').append('<li><strong>Low</strong>: '+stats.BTC.Low+'</li></ul></li>');
+                $('#prices').append('<li>BTC:<ul>');
+                $('#prices').append('<li><strong>Price</strong>: '+stats.BTC.Price+'</li>');
+                $('#prices').append('<li><strong>High</strong>: '+stats.BTC.High+'</li>');
+                $('#prices').append('<li><strong>Low</strong>: '+stats.BTC.Low+'</li></ul></li>');
                 // LTC
-                $('.prices').append('<li>LTC:<ul>');
-                $('.prices').append('<li><strong>Price</strong>: '+stats.LTC.Price+'</li>');
-                $('.prices').append('<li><strong>High</strong>: '+stats.LTC.High+'</li>');
-                $('.prices').append('<li><strong>Low</strong>: '+stats.LTC.Low+'</li></ul></li>');
+                $('#prices').append('<li>LTC:<ul>');
+                $('#prices').append('<li><strong>Price</strong>: '+stats.LTC.Price+'</li>');
+                $('#prices').append('<li><strong>High</strong>: '+stats.LTC.High+'</li>');
+                $('#prices').append('<li><strong>Low</strong>: '+stats.LTC.Low+'</li></ul></li>');
                 // NMC
-                $('.prices').append('<li>NMC:<ul>');
-                $('.prices').append('<li><strong>Price</strong>: '+stats.NMC.Price+'</li>');
-                $('.prices').append('<li><strong>High</strong>: '+stats.NMC.High+'</li>');
-                $('.prices').append('<li><strong>Low</strong>: '+stats.NMC.Low+'</li></ul></li>');
+                $('#prices').append('<li>NMC:<ul>');
+                $('#prices').append('<li><strong>Price</strong>: '+stats.NMC.Price+'</li>');
+                $('#prices').append('<li><strong>High</strong>: '+stats.NMC.High+'</li>');
+                $('#prices').append('<li><strong>Low</strong>: '+stats.NMC.Low+'</li></ul></li>');
               });
           });
         </script>
