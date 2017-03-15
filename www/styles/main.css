@@ -226,6 +226,9 @@ html, body {
 .mdl-mega-footer {
     padding: 1px 40px;
     margin-top: 3em;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
 }
 
 .mdl-mega-footer--bottom-section, .mdl-mega-footer__bottom-section {

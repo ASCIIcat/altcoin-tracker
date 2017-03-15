@@ -1,13 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.asciicat.apitest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>api-test</name>
+    <name>altcointracker</name>
     <description>
-        API test APp
+        Altcoin Tracker
     </description>
     <author email="asciicatdesigns@gmail.com" href="https://asciicat.github.io">
         ASCIIcat
     </author>
     <content src="index.html" />
-    <access origin="*" />
     <access origin="https://altcointrader.co.za/api/v1/live-stats" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
 </widget>
