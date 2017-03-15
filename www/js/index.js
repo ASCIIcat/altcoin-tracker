@@ -5,7 +5,9 @@ $(document).on("mobileinit", function(){ //apply overrides here
 });
 
 $(document).ready(function(){
-  request();
+  $('.loader').show('fast');
+  // request();
+  setTimeout(request(), 2000);
 });
 
 
@@ -44,21 +46,44 @@ function request() {
     });
 
   $.unblockUI();
-  $('.loader').hide();
+  // $('.loader').hide();
+  setTimeout($('.loader').toggle('fast'), 2000);
 }
 
 $('#reload').click(function(){
-  $('.loader').show();
+  $('.loader').toggle('fast');
   setTimeout(request(), 2000);
 });
 
-$(function() {
-    $("#btc").swipe( {
-      swipeLeft:function(event, direction, distance, duration, fingerCount) {
-      $("#btc").removeClass('is-active');
-      $('#ltc').addClass('is-active');
-      $("#btc_menu").removeClass('is-active');
-      $('#ltc_menu').addClass('is-active');
-    }
-  });
+$("#btc").swipe( {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+    $("#btc").removeClass('is-active');
+    $('#ltc').addClass('is-active');
+    $("#btc_menu").removeClass('is-active');
+    $('#ltc_menu').addClass('is-active');
+  }
+});
+
+$("#ltc").swipe( {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+    $("#ltc").removeClass('is-active');
+    $('#nmc').addClass('is-active');
+    $("#ltc_menu").removeClass('is-active');
+    $('#nmc_menu').addClass('is-active');
+  },
+  swipeRight:function(event, direction, distance, duration, fingerCount) {
+    $("#ltc").removeClass('is-active');
+    $('#btc').addClass('is-active');
+    $("#ltc_menu").removeClass('is-active');
+    $('#btc_menu').addClass('is-active');
+}
+});
+
+$("#nmc").swipe( {
+    swipeRight:function(event, direction, distance, duration, fingerCount) {
+    $("#nmc").removeClass('is-active');
+    $('#ltc').addClass('is-active');
+    $("#nmc_menu").removeClass('is-active');
+    $('#ltc_menu').addClass('is-active');
+  }
 });
