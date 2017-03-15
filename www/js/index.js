@@ -11,6 +11,7 @@ $(document).ready(function(){
 function request() {
   var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
   $.getJSON(altcoinAPI, function(stats){
+      alert(stats.BTC.Price);
       // var stats = JSON.parse(data);
       // BTC
       // $('#prices').append('<li>BTC:<ul>');
@@ -31,5 +32,6 @@ function request() {
 }
 
 $('#reload').click(function(){
+  alert('reload requested');
   request();
 });
