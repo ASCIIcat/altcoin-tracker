@@ -52,7 +52,15 @@ function request() {
 
 $('#reload').click(function(){
   $('.loader').toggle('fast');
+  //Hide prices
+  $('#btc-prices').toggle('fast');
+  $('#ltc-prices').toggle('fast');
+  $('#nmc-prices').toggle('fast');
   setTimeout(request(), 2000);
+  //show prices
+  $('#btc-prices').toggle('fast');
+  $('#ltc-prices').toggle('fast');
+  $('#nmc-prices').toggle('fast');
 });
 
 $("#btc").swipe( {
