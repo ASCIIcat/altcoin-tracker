@@ -1,16 +1,27 @@
 $(document).on("mobileinit", function(){ //apply overrides here
   $.mobile.allowCrossDomainPages = true;
   $.support.cors = true;
+  $.mobile.loadingMessage = false;
 });
 
 $(document).ready(function(){
   request();
 });
 
+
 function request() {
+  $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        } });
   var altcoinAPI = "https://altcointrader.co.za/api/v1/live-stats";
   $.getJSON(altcoinAPI, function(stats){
-      alert(stats.BTC.Price);
+      // alert(stats.BTC.Price);
       // var stats = JSON.parse(data);
       // BTC
       // $('#prices').append('<li>BTC:<ul>');
@@ -31,9 +42,15 @@ function request() {
       $('#nmc-prices').append('<li><strong>High</strong>: '+stats.NMC.High+'</li>');
       $('#nmc-prices').append('<li><strong>Low</strong>: '+stats.NMC.Low+'</li>');
     });
+
+  $.unblockUI();
+  $('.loader').hide();
 }
 
 $('#reload').click(function(){
-  alert('reload requested');
-  request();
+  $('.loader').show();
+  setTimeout(request(), 2000);
+  // alert('reload requested');
+  // request();
+
 });
