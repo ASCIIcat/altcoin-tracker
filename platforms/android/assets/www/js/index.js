@@ -50,7 +50,15 @@ function request() {
 $('#reload').click(function(){
   $('.loader').show();
   setTimeout(request(), 2000);
-  // alert('reload requested');
-  // request();
+});
 
+$(function() {
+    $("#btc").swipe( {
+      swipeLeft:function(event, direction, distance, duration, fingerCount) {
+      $("#btc").removeClass('is-active');
+      $('#ltc').addClass('is-active');
+      $("#btc_menu").removeClass('is-active');
+      $('#ltc_menu').addClass('is-active');
+    }
+  });
 });
