@@ -8,7 +8,165 @@ $(document).ready(function(){
   $('.loader').show('fast');
   // request();
   setTimeout(request(), 2000);
+  drawBTCChart();
+  drawLTCChart();
+  drawNMCChart();
 });
+
+var options = {
+      scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero:false
+              }
+          }],
+          xAxes: [{
+                display: false
+            }]
+      },
+      title: {
+          display: false,
+      },
+      legend: {
+          display: false,
+      }
+  };
+
+
+function drawBTCChart() {
+  var jsonData = $.ajax({
+      url: "http://www.waterdropstudios.com/api/altcoin-poller/btc-history.php",
+      dataType: "json",
+      async: false
+      }).responseText;
+
+  var ctx = $("#btc_chart_div");
+
+  var json_obj = JSON.parse(jsonData);
+
+  var data = {
+    labels: json_obj.Labels,
+    datasets: [
+        {
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "none",
+            borderColor: "none",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: json_obj.Data,
+            spanGaps: false,
+        }
+    ]
+  };
+
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: options
+  });
+}
+
+function drawLTCChart() {
+  var jsonData = $.ajax({
+      url: "http://www.waterdropstudios.com/api/altcoin-poller/ltc-history.php",
+      dataType: "json",
+      async: false
+      }).responseText;
+
+  var ctx = $("#ltc_chart_div");
+
+  var json_obj = JSON.parse(jsonData);
+
+  var data = {
+    labels: json_obj.Labels,
+    datasets: [
+        {
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "none",
+            borderColor: "none",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: json_obj.Data,
+            spanGaps: false,
+        }
+    ]
+  };
+
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: options
+  });
+}
+
+function drawNMCChart() {
+  var jsonData = $.ajax({
+      url: "http://www.waterdropstudios.com/api/altcoin-poller/nmc-history.php",
+      dataType: "json",
+      async: false
+      }).responseText;
+
+  var ctx = $("#nmc_chart_div");
+
+  var json_obj = JSON.parse(jsonData);
+
+  var data = {
+    labels: json_obj.Labels,
+    datasets: [
+        {
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "none",
+            borderColor: "none",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: json_obj.Data,
+            spanGaps: false,
+        }
+    ]
+  };
+
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: options
+  });
+}
 
 
 function request() {
@@ -50,6 +208,10 @@ function request() {
   setTimeout($('.loader').toggle('fast'), 2000);
 }
 
+$('#exit_menu').click(function() {
+  navigator.app.exitApp();
+});
+
 $('#reload').click(function(){
   $('.loader').toggle('fast');
   //Hide prices
@@ -61,6 +223,10 @@ $('#reload').click(function(){
   $('#btc-prices').toggle('fast');
   $('#ltc-prices').toggle('fast');
   $('#nmc-prices').toggle('fast');
+
+  drawBTCChart();
+  drawLTCChart();
+  drawNMCChart();
 });
 
 $("#btc").swipe( {

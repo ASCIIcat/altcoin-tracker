@@ -26,7 +26,7 @@ html, body {
   background-color: #ffffff !important;
 }
 .mdl-demo .mdl-layout__header-row {
-  padding-left: 40px;
+  padding-left: 1%;
 }
 .mdl-demo .mdl-layout.is-small-screen .mdl-layout__header-row h3 {
   font-size: inherit;
