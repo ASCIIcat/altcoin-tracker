@@ -11,6 +11,7 @@ $(document).ready(function(){
   drawBTCChart();
   drawLTCChart();
   drawNMCChart();
+  drawPIVXChart();
 });
 
 var options = {
@@ -168,6 +169,51 @@ function drawNMCChart() {
   });
 }
 
+function drawPIVXChart() {
+  var jsonData = $.ajax({
+      url: "http://www.waterdropstudios.com/api/altcoin-poller/pivx-history.php",
+      dataType: "json",
+      async: false
+      }).responseText;
+
+  var ctx = $("#pivx_chart_div");
+
+  var json_obj = JSON.parse(jsonData);
+
+  var data = {
+    labels: json_obj.Labels,
+    datasets: [
+        {
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "none",
+            borderColor: "none",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: json_obj.Data,
+            spanGaps: false,
+        }
+    ]
+  };
+
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: options
+  });
+}
+
 
 function request() {
   $.blockUI({ css: {
@@ -185,6 +231,7 @@ function request() {
       // var stats = JSON.parse(data);
       // BTC
       // $('#prices').append('<li>BTC:<ul>');
+      var btc_zar_price = stats.BTC.Price;
       $('#btc-prices').empty();
       $('#btc-prices').append('<li><strong>Price</strong>: '+stats.BTC.Price+'</li>');
       $('#btc-prices').append('<li><strong>High</strong>: '+stats.BTC.High+'</li>');
@@ -201,7 +248,17 @@ function request() {
       $('#nmc-prices').append('<li><strong>Price</strong>: '+stats.NMC.Price+'</li>');
       $('#nmc-prices').append('<li><strong>High</strong>: '+stats.NMC.High+'</li>');
       $('#nmc-prices').append('<li><strong>Low</strong>: '+stats.NMC.Low+'</li>');
+
+      var cryptopiaAPI = "https://www.cryptopia.co.nz/api/GetMarket/4214";
+      $.getJSON(cryptopiaAPI, function(stats2){
+          $('#pivx-prices').empty();
+          $('#pivx-prices').append('<li><strong>Price</strong>: '+parseFloat(stats2.Data.LastPrice)*parseFloat(btc_zar_price)+'</li>');
+          $('#pivx-prices').append('<li><strong>High</strong>: '+parseFloat(stats2.Data.High)*parseFloat(btc_zar_price)+'</li>');
+          $('#pivx-prices').append('<li><strong>Low</strong>: '+parseFloat(stats2.Data.Low)*parseFloat(btc_zar_price)+'</li>');
+        });
     });
+
+
 
   $.unblockUI();
   // $('.loader').hide();
@@ -227,6 +284,7 @@ $('#reload').click(function(){
   drawBTCChart();
   drawLTCChart();
   drawNMCChart();
+  drawPIVXChart();
 });
 
 $("#btc").swipe( {
@@ -254,10 +312,25 @@ $("#ltc").swipe( {
 });
 
 $("#nmc").swipe( {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+      $("#nmc").removeClass('is-active');
+      $('#pivx').addClass('is-active');
+      $("#nmc_menu").removeClass('is-active');
+      $('#pivx_menu').addClass('is-active');
+    },
     swipeRight:function(event, direction, distance, duration, fingerCount) {
     $("#nmc").removeClass('is-active');
     $('#ltc').addClass('is-active');
     $("#nmc_menu").removeClass('is-active');
     $('#ltc_menu').addClass('is-active');
+  }
+});
+
+$("#pivx").swipe( {
+    swipeRight:function(event, direction, distance, duration, fingerCount) {
+    $("#pivx").removeClass('is-active');
+    $('#nmc').addClass('is-active');
+    $("#pivx_menu").removeClass('is-active');
+    $('#nmc_menu').addClass('is-active');
   }
 });
