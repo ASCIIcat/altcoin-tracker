@@ -214,7 +214,7 @@ function drawPIVXChart() {
   });
 }
 
-function drawPIVXChart() {
+function drawXRPChart() {
   var jsonData = $.ajax({
       url: "http://www.waterdropstudios.com/api/altcoin-poller/xrp-history.php",
       dataType: "json",
