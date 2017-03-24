@@ -214,6 +214,51 @@ function drawPIVXChart() {
   });
 }
 
+function drawPIVXChart() {
+  var jsonData = $.ajax({
+      url: "http://www.waterdropstudios.com/api/altcoin-poller/xrp-history.php",
+      dataType: "json",
+      async: false
+      }).responseText;
+
+  var ctx = $("#xrp_chart_div");
+
+  var json_obj = JSON.parse(jsonData);
+
+  var data = {
+    labels: json_obj.Labels,
+    datasets: [
+        {
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "none",
+            borderColor: "none",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: json_obj.Data,
+            spanGaps: false,
+        }
+    ]
+  };
+
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: options
+  });
+}
+
 
 function request() {
   $.blockUI({ css: {
@@ -256,6 +301,14 @@ function request() {
           $('#pivx-prices').append('<li><strong>High</strong>: '+parseFloat(stats2.Data.High)*parseFloat(btc_zar_price)+'</li>');
           $('#pivx-prices').append('<li><strong>Low</strong>: '+parseFloat(stats2.Data.Low)*parseFloat(btc_zar_price)+'</li>');
         });
+
+      var poloneixAPI = "https://poloniex.com/public?command=returnTicker";
+      $.getJSON(poloneixAPI, function(stats3){
+          $('#pivx-prices').empty();
+          $('#pivx-prices').append('<li><strong>Price</strong>: '+parseFloat(stats3.BTC_XRP.last)*parseFloat(btc_zar_price)+'</li>');
+          $('#pivx-prices').append('<li><strong>High</strong>: '+parseFloat(stats3.BTC_XRP.highestBid)*parseFloat(btc_zar_price)+'</li>');
+          $('#pivx-prices').append('<li><strong>Low</strong>: '+parseFloat(stats3.BTC_XRP.lowestAsk)*parseFloat(btc_zar_price)+'</li>');
+        });
     });
 
 
@@ -285,6 +338,7 @@ $('#reload').click(function(){
   drawLTCChart();
   drawNMCChart();
   drawPIVXChart();
+  drawXRPChart();
 });
 
 $("#btc").swipe( {
@@ -327,10 +381,25 @@ $("#nmc").swipe( {
 });
 
 $("#pivx").swipe( {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+      $("#pivx").removeClass('is-active');
+      $('#xrp').addClass('is-active');
+      $("#pivx_menu").removeClass('is-active');
+      $('#xrp_menu').addClass('is-active');
+    },
     swipeRight:function(event, direction, distance, duration, fingerCount) {
     $("#pivx").removeClass('is-active');
     $('#nmc').addClass('is-active');
     $("#pivx_menu").removeClass('is-active');
     $('#nmc_menu').addClass('is-active');
+  }
+});
+
+$("#xrp").swipe( {
+    swipeRight:function(event, direction, distance, duration, fingerCount) {
+    $("#xrp").removeClass('is-active');
+    $('#pivx').addClass('is-active');
+    $("#xrp_menu").removeClass('is-active');
+    $('#pivx_menu').addClass('is-active');
   }
 });
